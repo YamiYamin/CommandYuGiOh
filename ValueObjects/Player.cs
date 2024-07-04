@@ -11,7 +11,7 @@ public class Player
     public Player(Deck deck, DuelOptions options)
     {
         Deck = deck;
-        Hand = [];
+        Hand = new();
         Field = new();
         Options = options;
     }
@@ -29,20 +29,8 @@ public class Player
 
     public void Summon(Card card)
     {
-        Field.Put(card, ZoneType.MonsterZoneLeft);
         Hand.Remove(card);
-    }
-
-    public Card Summon(int index)
-    {
-        var card = Hand.GetCard(index);
-        if (card == Card.Empty)
-        {
-            return card;
-        }
         Field.Put(card, ZoneType.MonsterZoneLeft);
-        Hand.Remove(card);
-        return card;
     }
 
     public void MainLoop()
@@ -61,7 +49,7 @@ public class Player
         while (true)
         {
             Console.WriteLine($@"★ コマンドを選んでください。");
-            Console.WriteLine($@"1. ドロー, 2. 召喚");
+            Console.WriteLine($@"0. ドロー, 1. 召喚");
             Console.Write("> ");
             if (!int.TryParse(Console.ReadLine(), out int num))
             {
@@ -71,7 +59,7 @@ public class Player
             switch (num)
             {
 
-                case 1:
+                case 0:
                     var drawCard = Draw();
                     if (drawCard == Card.Empty)
                     {
@@ -80,26 +68,27 @@ public class Player
                     }
                     Console.WriteLine($"{drawCard.Name}をドローしました。");
                     break;
-                case 2:
-                    if (Hand.Count <= 0)
+                case 1:
+                    if (!Hand.Exists())
                     {
                         Console.WriteLine("手札がありません。");
                         continue;
                     }
                     Console.WriteLine($@"★ 手札から召喚するモンスターを選んでください。");
-                    PrintHands();
+                    Hand.PrintHands();
                     Console.Write("> ");
                     if (!int.TryParse(Console.ReadLine(), out int index))
                     {
                         Console.WriteLine("不正な入力値です");
                         continue;
                     }
-                    if (index < 1 || index > Hand.Count)
+                    var card = Hand.GetCard(index);
+                    if (card == Card.Empty)
                     {
                         Console.WriteLine("不正な入力値です");
                         continue;
                     }
-                    var card = Summon(index - 1);
+                    Summon(card);
                     Console.WriteLine($"{card.Name}を召喚しました。");
                     break;
                 default:
@@ -107,16 +96,6 @@ public class Player
                     break;
             }
         }
-    }
-
-    public void PrintHands()
-    {
-        Console.Write($"{1}. {Hand.First().Name}");
-        for (int i = 1; i < Hand.Count; i++)
-        {
-            Console.Write($", {i + 1}. {Hand[i].Name}");
-        }
-        Console.WriteLine();
     }
 }
 
