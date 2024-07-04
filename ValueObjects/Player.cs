@@ -17,23 +17,21 @@ public class Player
         }
     }
 
-    public void Draw()
+    public Card Draw()
     {
         if (!Deck.Any())
         {
-            Console.WriteLine($"デッキがありません。");
-            return;
+            return Card.Empty;
         }
         var drawCard = Deck.Pop();
         Hand.Add(drawCard);
-        Console.WriteLine($"{drawCard.Name}をドローしました。");
+        return drawCard;
     }
 
     public void Summon(Card card)
     {
         Field.Put(card, ZoneType.MonsterZoneLeft);
         Hand.Remove(card);
-        Console.WriteLine($"{card.Name}を召喚しました。");
     }
 
     public void MainLoop()
@@ -52,7 +50,13 @@ public class Player
             {
 
                 case 1:
-                    Draw();
+                    var drawCard = Draw();
+                    if (drawCard == Card.Empty)
+                    {
+                        Console.WriteLine($"デッキがありません。");
+                        continue;
+                    }
+                    Console.WriteLine($"{drawCard.Name}をドローしました。");
                     break;
                 case 2:
                     if (Hand.Count <= 0)
@@ -78,7 +82,9 @@ public class Player
                         Console.WriteLine("不正な入力値です");
                         continue;
                     }
-                    Summon(Hand[index - 1]);
+                    var card = Hand[index - 1];
+                    Summon(card);
+                    Console.WriteLine($"{card.Name}を召喚しました。");
                     break;
                 default:
                     Console.WriteLine("不正な入力値です");
