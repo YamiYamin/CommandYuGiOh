@@ -28,28 +28,43 @@ public class Field
     public void Put(Card card, ZoneType zoneType)
     {
         var zone = GetZone(zoneType);
-        zone.Set(card);
-    }
-
-    public bool Exists(ZoneType zoneType)
-    {
-        var zone = GetZone(zoneType);
-        return zone.Exists();
+        if (zone.CardExists())
+        {
+            zone.Push(card);
+        }
+        zone.Put(card);
     }
 }
 
 public class Zone
 {
-    public Card Card { get; set; } = Card.Empty;
+    public List<Card> Cards { get; set; } = [];
 
-    public void Set(Card card)
+    public void Put(Card card)
     {
-        Card = card;
+        Cards.Add(card);
     }
 
-    public bool Exists()
+    public void Push(Card card)
     {
-        return Card != Card.Empty;
+        Cards.Insert(0, card);
+    }
+
+    public Card Pop()
+    {
+        if (Cards.Count == 0)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        var card = Cards[0];
+        Cards.RemoveAt(0);
+        return card;
+    }
+
+    public bool CardExists()
+    {
+        return Cards.Count > 0;
     }
 }
 
