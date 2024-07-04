@@ -1,30 +1,40 @@
-using System.Dynamic;
-
 namespace YuGiOh.ValueObjects;
 
 public class Field
 {
-    public Zone ExtraMonsterZone { get; set; } = new();
-    public Zone MonsterZone1 { get; set; } = new();
-    public Zone MonsterZone2 { get; set; } = new();
-    public Zone MonsterZone3 { get; set; } = new();
-    public Zone MonsterZone4 { get; set; } = new();
-    public Zone MonsterZone5 { get; set; } = new();
     public Zone FieldZone { get; set; } = new();
-    public Zone PendulumZoneLeft { get; set; } = new();
-    public Zone PendulumZoneRight { get; set; } = new();
-    public Zone SpellTrapZone1 { get; set; } = new();
-    public Zone SpellTrapZone2 { get; set; } = new();
-    public Zone SpellTrapZone3 { get; set; } = new();
+    public Zone MonsterZoneLeft { get; set; } = new();
+    public Zone MonsterZoneCenter { get; set; } = new();
+    public Zone MonsterZoneRight { get; set; } = new();
+    public Zone SpellTrapZoneLeft { get; set; } = new();
+    public Zone SpellTrapZoneRight { get; set; } = new();
+    public Zone SpellTrapZoneCenter { get; set; } = new();
 
-    public void PutMonsterZone1(Card card)
+    private Zone GetZone(ZoneType zoneType)
     {
-        Put(card, MonsterZone1);
+        return zoneType switch
+        {
+            ZoneType.FieldZone => FieldZone,
+            ZoneType.MonsterZoneLeft => MonsterZoneLeft,
+            ZoneType.MonsterZoneCenter => MonsterZoneCenter,
+            ZoneType.MonsterZoneRight => MonsterZoneRight,
+            ZoneType.SpellTrapZoneLeft => SpellTrapZoneLeft,
+            ZoneType.SpellTrapZoneRight => SpellTrapZoneRight,
+            ZoneType.SpellTrapZoneCenter => SpellTrapZoneCenter,
+            _ => throw new NotImplementedException()
+        };
     }
 
-    private static void Put(Card card, in Zone zone)
+    public void Put(Card card, ZoneType zoneType)
     {
+        var zone = GetZone(zoneType);
         zone.Set(card);
+    }
+
+    public bool Exists(ZoneType zoneType)
+    {
+        var zone = GetZone(zoneType);
+        return zone.Exists();
     }
 }
 
@@ -36,4 +46,20 @@ public class Zone
     {
         Card = card;
     }
+
+    public bool Exists()
+    {
+        return Card != Card.Empty;
+    }
+}
+
+public enum ZoneType
+{
+    MonsterZoneLeft,
+    MonsterZoneCenter,
+    MonsterZoneRight,
+    FieldZone,
+    SpellTrapZoneLeft,
+    SpellTrapZoneRight,
+    SpellTrapZoneCenter,
 }

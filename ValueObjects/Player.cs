@@ -31,7 +31,7 @@ public class Player
 
     public void Summon(Card card)
     {
-        Field.PutMonsterZone1(card);
+        Field.Put(card, ZoneType.MonsterZoneLeft);
         Hand.Remove(card);
         Console.WriteLine($"{card.Name}を召喚しました。");
     }
@@ -40,8 +40,9 @@ public class Player
     {
         while (true)
         {
-            Console.WriteLine($@"★コマンドの番号を入力してください。");
+            Console.WriteLine($@"★ コマンドを選んでください。");
             Console.WriteLine($@"1. ドロー, 2. 召喚");
+            Console.Write("> ");
             if (!int.TryParse(Console.ReadLine(), out int num))
             {
                 Console.WriteLine("不正な入力値です");
@@ -59,22 +60,25 @@ public class Player
                         Console.WriteLine("手札がありません。");
                         continue;
                     }
-                    Console.WriteLine($@"★召喚するモンスターの番号を入力してください。");
-                    for (int i = 0; i < Hand.Count; i ++)
+                    Console.WriteLine($@"★ 手札から召喚するモンスターを選んでください。");
+                    Console.Write($"{1}. {Hand.First().Name}");
+                    for (int i = 1; i < Hand.Count; i++)
                     {
-                        Console.WriteLine($"{i + 1}. {Hand[i].Name}");
+                        Console.Write($", {i + 1}. {Hand[i].Name}");
                     }
-                    if (!int.TryParse(Console.ReadLine(), out num))
-                    {
-                        Console.WriteLine("不正な入力値です");
-                        continue;
-                    }
-                    if (num < 1 || num > Hand.Count)
+                    Console.WriteLine();
+                    Console.Write("> ");
+                    if (!int.TryParse(Console.ReadLine(), out int index))
                     {
                         Console.WriteLine("不正な入力値です");
                         continue;
                     }
-                    Summon(Hand[num - 1]);
+                    if (index < 1 || index > Hand.Count)
+                    {
+                        Console.WriteLine("不正な入力値です");
+                        continue;
+                    }
+                    Summon(Hand[index - 1]);
                     break;
                 default:
                     Console.WriteLine("不正な入力値です");
