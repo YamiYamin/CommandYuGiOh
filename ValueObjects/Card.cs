@@ -2,22 +2,37 @@ namespace YuGiOh.ValueObjects;
 
 public class Card
 {
-    public static Card Empty { get; } = new("", "", CardType.Monster);
+    public static Card Empty { get; } = new(string.Empty, string.Empty);
     public string Id { get; }
     public string Name { get; }
-    public CardType Type { get; }
 
-    public Card(string id, string name, CardType type)
+    public Card(string id, string name)
     {
         Id = id;
         Name = name;
-        Type = type;
     }
 }
 
-public enum CardType
+public class Monster : Card
 {
-    Monster,
-    Spell,
-    Trap,
+    public Monster(string id, string name)
+        : base(id, name)
+    {
+    }
+}
+
+public class Spell : Card
+{
+    public Spell(string id, string name)
+        : base(id, name)
+    {
+    }
+}
+
+public class Trap : Card
+{
+    public Trap(string id, string name)
+        : base(id, name)
+    {
+    }
 }

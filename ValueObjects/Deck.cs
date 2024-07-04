@@ -2,6 +2,10 @@ namespace YuGiOh.ValueObjects;
 
 public class Deck : List<Card>
 {
+    public Deck()
+    {
+    }
+
     public Deck(List<Card> cards)
     {
         AddRange(cards);

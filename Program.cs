@@ -1,18 +1,16 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using YuGiOh.ValueObjects;
 
-List<Card> cards = 
+Deck deck = 
 [
-    new Card("0", "灰流うらら", CardType.Monster),
-    new Card("0", "増殖するG", CardType.Monster),
-    new Card("0", "エフェクト・ヴェーラー", CardType.Monster),
-    new Card("0", "融合", CardType.Monster),
-    new Card("0", "増援", CardType.Monster),
-    new Card("0", "篝火", CardType.Monster),
+    new Monster("0", "灰流うらら"),
+    new Monster("0", "増殖するG"),
+    new Monster("0", "エフェクト・ヴェーラー"),
+    new Monster("0", "融合"),
+    new Monster("0", "増援"),
+    new Monster("0", "篝火"),
 ];
 
-Deck deck = new(cards);
-
-Player player = new(deck, new() { NumOfHands=3 });
+var player = new Player(deck, new() { NumOfHands=3 });
 
 player.MainLoop();
