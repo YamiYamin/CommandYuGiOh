@@ -6,15 +6,14 @@ public class Player
     public Hand Hand { get; set; }
     public Field Field { get; set; }
 
+    public DuelOptions Options { get; set; }
+
     public Player(Deck deck, DuelOptions options)
     {
         Deck = deck;
         Hand = [];
         Field = new();
-        for (int i = 0; i < options.NumOfHands; i++)
-        {
-            Draw();
-        }
+        Options = options;
     }
 
     public Card Draw()
@@ -36,6 +35,17 @@ public class Player
 
     public void MainLoop()
     {
+        for (int i = 0; i < Options.NumOfHands; i++)
+        {
+            var drawCard = Draw();
+            if (drawCard == Card.Empty)
+            {
+                Console.WriteLine($"デッキがありません。");
+                break;
+            }
+            Console.WriteLine($"{drawCard.Name}をドローしました。");
+        }
+
         while (true)
         {
             Console.WriteLine($@"★ コマンドを選んでください。");
