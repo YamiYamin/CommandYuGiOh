@@ -33,6 +33,18 @@ public class Player
         Hand.Remove(card);
     }
 
+    public Card Summon(int index)
+    {
+        var card = Hand.GetCard(index);
+        if (card == Card.Empty)
+        {
+            return card;
+        }
+        Field.Put(card, ZoneType.MonsterZoneLeft);
+        Hand.Remove(card);
+        return card;
+    }
+
     public void MainLoop()
     {
         for (int i = 0; i < Options.NumOfHands; i++)
@@ -75,12 +87,7 @@ public class Player
                         continue;
                     }
                     Console.WriteLine($@"★ 手札から召喚するモンスターを選んでください。");
-                    Console.Write($"{1}. {Hand.First().Name}");
-                    for (int i = 1; i < Hand.Count; i++)
-                    {
-                        Console.Write($", {i + 1}. {Hand[i].Name}");
-                    }
-                    Console.WriteLine();
+                    PrintHands();
                     Console.Write("> ");
                     if (!int.TryParse(Console.ReadLine(), out int index))
                     {
@@ -92,8 +99,7 @@ public class Player
                         Console.WriteLine("不正な入力値です");
                         continue;
                     }
-                    var card = Hand[index - 1];
-                    Summon(card);
+                    var card = Summon(index - 1);
                     Console.WriteLine($"{card.Name}を召喚しました。");
                     break;
                 default:
@@ -101,6 +107,16 @@ public class Player
                     break;
             }
         }
+    }
+
+    public void PrintHands()
+    {
+        Console.Write($"{1}. {Hand.First().Name}");
+        for (int i = 1; i < Hand.Count; i++)
+        {
+            Console.Write($", {i + 1}. {Hand[i].Name}");
+        }
+        Console.WriteLine();
     }
 }
 
