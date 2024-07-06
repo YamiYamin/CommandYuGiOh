@@ -1,3 +1,5 @@
+using YuGiOh.ValueObjects.Cards;
+
 namespace YuGiOh.ValueObjects;
 
 public class Player
@@ -27,10 +29,11 @@ public class Player
         return drawCard;
     }
 
-    public void Summon(Card card)
+    public void Summon(Card card, MonsterZone monsterZone)
     {
         Hand.Remove(card);
-        Field.MonsterZoneLeft.Insert(card, 0);
+        
+        monsterZone.Insert(card, 0);
     }
 
     public void MainLoop()
@@ -88,7 +91,19 @@ public class Player
                         Console.WriteLine("不正な入力値です");
                         continue;
                     }
-                    Summon(card);
+                    Console.WriteLine("召喚する位置を選んでください。");
+                    Console.WriteLine($"0. 左端, 1. 中央, 2. 右端");
+                    if (!int.TryParse(Console.ReadLine(), out index))
+                    {
+                        Console.WriteLine("不正な入力値です");
+                        continue;
+                    }
+                    var zone = Field.GetMonsterZone(0);
+                    if (zone is null)
+                    {
+                        Console.WriteLine("不正な入力値です");
+                        continue;
+                    }
                     Console.WriteLine($"{card.Name}を召喚しました。");
                     break;
                 default:

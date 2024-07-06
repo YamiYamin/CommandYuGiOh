@@ -1,3 +1,5 @@
+using YuGiOh.ValueObjects.Cards;
+
 namespace YuGiOh.ValueObjects;
 
 public class Hand
@@ -29,28 +31,59 @@ public class Hand
         _cards.Remove(card);
     }
 
+    public void PrintMonsters(bool showIndex = true)
+    {
+        if(!Exists())
+        {
+            return;
+        }
+
+        var monsters = GetMonsters();
+        PrintCards(monsters, showIndex);
+    }
+
+    private List<Monster> GetMonsters()
+    {
+        List<Monster> monsters = [];
+        foreach (var card in _cards)
+        {
+            if (card is Monster monster)
+            {
+                monsters.Add(monster);
+            }
+        }
+        return monsters;
+    }
+
     public void PrintHands(bool showIndex = true)
     {
         if (!Exists())
         {
             return;
         }
+
+        PrintCards(_cards, showIndex);
+    }
+
+    private static void PrintCards<T>(List<T> cards, bool showIndex) where T : Card
+    {
         if (showIndex)
         {
-            Console.Write($"{0}. {_cards.First().Name}");
-            for (int i = 1; i < _cards.Count; i++)
+            Console.Write($"{0}. {cards.First().Name}");
+            for (int i = 1; i < cards.Count; i++)
             {
-                Console.Write($", {i}. {_cards[i].Name}");
+                Console.Write($", {i}. {cards[i].Name}");
             }
         }
         else
         {
-            Console.Write($"{_cards.First().Name}");
-            for (int i = 1; i < _cards.Count; i++)
+            Console.Write($"{cards.First().Name}");
+            for (int i = 1; i < cards.Count; i++)
             {
-                Console.Write($", {_cards[i].Name}");
+                Console.Write($", {cards[i].Name}");
             }
         }
         Console.WriteLine();
     }
 }
+

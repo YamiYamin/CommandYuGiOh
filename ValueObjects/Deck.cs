@@ -1,3 +1,5 @@
+using YuGiOh.ValueObjects.Cards;
+
 namespace YuGiOh.ValueObjects;
 
 public class Deck : List<Card>

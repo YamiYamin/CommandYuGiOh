@@ -1,6 +1,20 @@
-﻿namespace YuGiOh.ValueObjects;
+﻿using YuGiOh.ValueObjects.Cards;
 
-public class Zone
+namespace YuGiOh.ValueObjects;
+
+public class FieldZone : Zone
+{
+}
+
+public class MonsterZone : Zone
+{
+}
+
+public class SpellTrapZone : Zone
+{
+}
+
+public abstract class Zone
 {
     public List<Card> Cards { get; set; } = [];
 
