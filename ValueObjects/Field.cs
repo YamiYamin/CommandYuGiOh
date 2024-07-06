@@ -9,31 +9,6 @@ public class Field
     public Zone SpellTrapZoneLeft { get; set; } = new();
     public Zone SpellTrapZoneRight { get; set; } = new();
     public Zone SpellTrapZoneCenter { get; set; } = new();
-
-    private Zone GetZone(ZoneType zoneType)
-    {
-        return zoneType switch
-        {
-            ZoneType.FieldZone => FieldZone,
-            ZoneType.MonsterZoneLeft => MonsterZoneLeft,
-            ZoneType.MonsterZoneCenter => MonsterZoneCenter,
-            ZoneType.MonsterZoneRight => MonsterZoneRight,
-            ZoneType.SpellTrapZoneLeft => SpellTrapZoneLeft,
-            ZoneType.SpellTrapZoneRight => SpellTrapZoneRight,
-            ZoneType.SpellTrapZoneCenter => SpellTrapZoneCenter,
-            _ => throw new NotImplementedException()
-        };
-    }
-
-    public void Put(Card card, ZoneType zoneType)
-    {
-        var zone = GetZone(zoneType);
-        if (zone.CardExists())
-        {
-            zone.Push(card);
-        }
-        zone.Put(card);
-    }
 }
 
 public enum ZoneType

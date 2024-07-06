@@ -4,25 +4,20 @@ public class Zone
 {
     public List<Card> Cards { get; set; } = [];
 
-    public void Put(Card card)
+    public void Insert(Card card, int index)
     {
-        Cards.Add(card);
+        Cards.Insert(index, card);
     }
 
-    public void Push(Card card)
+    public Card Take(int index)
     {
-        Cards.Insert(0, card);
-    }
-
-    public Card Pop()
-    {
-        if (Cards.Count == 0)
+        if (Cards.Count <= index)
         {
             throw new IndexOutOfRangeException();
         }
 
-        var card = Cards[0];
-        Cards.RemoveAt(0);
+        var card = Cards[index];
+        Cards.RemoveAt(index);
         return card;
     }
 

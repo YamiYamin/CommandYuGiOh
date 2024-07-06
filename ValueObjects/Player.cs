@@ -30,7 +30,7 @@ public class Player
     public void Summon(Card card)
     {
         Hand.Remove(card);
-        Field.Put(card, ZoneType.MonsterZoneLeft);
+        Field.MonsterZoneLeft.Insert(card, 0);
     }
 
     public void MainLoop()
