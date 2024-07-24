@@ -4,24 +4,36 @@ namespace YuGiOh.ValueObjects;
 public class Field
 {
     public FieldZone FieldZone { get; set; } = new();
-    public MonsterZone MonsterZoneLeft { get; set; } = new();
-    public MonsterZone MonsterZoneCenter { get; set; } = new();
-    public MonsterZone MonsterZoneRight { get; set; } = new();
-    public SpellTrapZone SpellTrapZoneLeft { get; set; } = new();
-    public SpellTrapZone SpellTrapZoneRight { get; set; } = new();
-    public SpellTrapZone SpellTrapZoneCenter { get; set; } = new();
+    public MonsterZoneLeft MonsterZoneLeft { get; set; } = new();
+    public MonsterZoneCenter MonsterZoneCenter { get; set; } = new();
+    public MonsterZoneRight MonsterZoneRight { get; set; } = new();
+    public SpellTrapZoneLeft SpellTrapZoneLeft { get; set; } = new();
+    public SpellTrapZoneCenter SpellTrapZoneCenter { get; set; } = new();
+    public SpellTrapZoneRight SpellTrapZoneRight { get; set; } = new();
 
     public List<Zone> ZoneList { get; }
+    public List<Zone> MonsterZoneList { get; }
+    public List<Zone> SpellTrapZoneList { get; }
 
     public Field()
     {
-        ZoneList = 
-        [
-            FieldZone,
-            MonsterZoneLeft, MonsterZoneCenter, MonsterZoneRight,
-            SpellTrapZoneLeft, SpellTrapZoneCenter, SpellTrapZoneRight,
-        ];
+        ZoneList =
+            [
+                FieldZone,
+                MonsterZoneLeft, MonsterZoneCenter, MonsterZoneRight,
+                SpellTrapZoneLeft, SpellTrapZoneCenter, SpellTrapZoneRight,
+            ];
+
+        MonsterZoneList =
+            [
+                MonsterZoneLeft, MonsterZoneCenter, MonsterZoneRight,
+            ];
+        SpellTrapZoneList =
+            [
+                SpellTrapZoneLeft, SpellTrapZoneCenter, SpellTrapZoneRight,
+            ];
     }
+
     public MonsterZone? GetMonsterZone(int zoneNum)
     {
         return (MonsterZoneType)zoneNum switch
@@ -33,6 +45,26 @@ public class Field
         };
     }
 
+    public void PrintFieldZone()
+    {
+        FieldZone.Print();
+    }
+
+    public void PrintMonsterZone()
+    {
+        foreach (var zone in MonsterZoneList)
+        {
+            zone.Print();
+        }
+    }
+
+    public void PrintSpellTrapZone()
+    {
+        foreach (var zone in SpellTrapZoneList)
+        {
+            zone.Print();
+        }
+    }
 }
 
 public enum MonsterZoneType

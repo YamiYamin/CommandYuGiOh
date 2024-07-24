@@ -27,4 +27,13 @@ public class Player(Deck deck, DuelOptions options)
         
         monsterZone.Insert(card, 0);
     }
+
+    public void PrintField()
+    {
+        Field.PrintFieldZone();
+        Field.PrintMonsterZone();
+        Console.WriteLine();
+        Field.PrintSpellTrapZone();
+        Deck.Print();
+    }
 }

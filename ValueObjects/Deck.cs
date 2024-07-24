@@ -26,7 +26,7 @@ public class Deck
         cards.RemoveAt(0);
         return card;
     }
-    
+
     public void Shuffle()
     {
         cards = [.. cards.OrderBy(x => Random.Shared.Next())];
@@ -35,5 +35,16 @@ public class Deck
     public bool IsEmpty()
     {
         return cards.Count == 0;
+    }
+
+    public void Print()
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine(" Å†:0");
+            return;
+        }
+
+        Console.WriteLine($" Å°:{cards.Count}");
     }
 }

@@ -26,6 +26,7 @@ internal class Game(Deck deck, DuelOptions options)
 
         while (true)
         {
+            Player.PrintField();
             Console.WriteLine($@"★ コマンドを選んでください。");
             Console.WriteLine($@"0. ドロー, 1. 召喚");
             Console.Write("> ");
@@ -72,12 +73,13 @@ internal class Game(Deck deck, DuelOptions options)
                         Console.WriteLine("不正な入力値です");
                         continue;
                     }
-                    var zone = Player.Field.GetMonsterZone(0);
+                    var zone = Player.Field.GetMonsterZone(index);
                     if (zone is null)
                     {
                         Console.WriteLine("不正な入力値です");
                         continue;
                     }
+                    Player.Summon(card, zone);
                     Console.WriteLine($"{card.Name}を召喚しました。");
                     break;
                 default:
