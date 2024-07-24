@@ -12,6 +12,6 @@ Deck deck =
     new Monster("0", "篝火"),
 ];
 
-var player = new Player(deck, new() { NumOfHands=3 });
+var game = new Game(deck, new() { NumOfHands=3 });
 
-player.MainLoop();
+game.MainLoop();
