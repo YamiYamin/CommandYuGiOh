@@ -2,5 +2,5 @@
 
 public class DuelOptions
 {
-public int NumOfHands { get; set; }
+    public int NumOfHands { get; set; }
 }

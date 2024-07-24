@@ -5,10 +5,11 @@ namespace YuGiOh.ValueObjects;
 
 internal class Game(Deck deck, DuelOptions options)
 {
-    Player Player { get; set; } = new Player(deck, options);
+    public Player Player { get; } = new Player(deck, options);
 
     public void MainLoop()
     {
+        Player.Deck.Shuffle();
         for (int i = 0; i < Player.Options.NumOfHands; i++)
         {
             var drawCard = Player.Draw();

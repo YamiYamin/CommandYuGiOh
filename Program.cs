@@ -2,7 +2,7 @@
 using YuGiOh.ValueObjects;
 using YuGiOh.ValueObjects.Cards;
 
-Deck deck = 
+var deck = new Deck(
 [
     new Monster("0", "灰流うらら"),
     new Monster("0", "増殖するG"),
@@ -10,8 +10,8 @@ Deck deck =
     new Monster("0", "融合"),
     new Monster("0", "増援"),
     new Monster("0", "篝火"),
-];
+]);
 
-var game = new Game(deck, new() { NumOfHands=3 });
+var game = new Game(deck, new() { NumOfHands = 3 });
 
 game.MainLoop();
