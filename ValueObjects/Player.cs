@@ -7,6 +7,7 @@ public class Player(Deck deck, DuelOptions options)
     public Deck Deck { get; set; } = deck;
     public Hand Hand { get; set; } = new();
     public Field Field { get; set; } = new();
+    public Graveyard Graveyard { get; set; } = new();
 
     public DuelOptions Options { get; set; } = options;
 
@@ -32,7 +33,7 @@ public class Player(Deck deck, DuelOptions options)
     {
         Field.PrintFieldZone();
         Field.PrintMonsterZone();
-        Console.WriteLine();
+        Graveyard.Print();
         Field.PrintSpellTrapZone();
         Deck.Print();
     }
