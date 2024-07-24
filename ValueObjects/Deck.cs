@@ -4,7 +4,7 @@ namespace YuGiOh.ValueObjects;
 
 public class Deck
 {
-    public List<Card> Cards { get; set; } = [];
+    private List<Card> cards = [];
 
     public Deck()
     {
@@ -12,28 +12,28 @@ public class Deck
 
     public Deck(List<Card> cards)
     {
-        Cards.AddRange(cards);
+        this.cards.AddRange(cards);
     }
 
     public Card Pop()
     {
-        if (Cards.Count == 0)
+        if (cards.Count == 0)
         {
             throw new IndexOutOfRangeException();
         }
 
-        var card = Cards[0];
-        Cards.RemoveAt(0);
+        var card = cards[0];
+        cards.RemoveAt(0);
         return card;
     }
     
     public void Shuffle()
     {
-        Cards = [.. Cards.OrderBy(x => Random.Shared.Next())];
+        cards = [.. cards.OrderBy(x => Random.Shared.Next())];
     }
 
     public bool IsEmpty()
     {
-        return Cards.Count == 0;
+        return cards.Count == 0;
     }
 }
