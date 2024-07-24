@@ -31,4 +31,9 @@ public class Deck
     {
         Cards = [.. Cards.OrderBy(x => Random.Shared.Next())];
     }
+
+    public bool IsEmpty()
+    {
+        return Cards.Count == 0;
+    }
 }

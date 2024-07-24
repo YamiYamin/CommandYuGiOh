@@ -9,7 +9,10 @@ internal class Game(Deck deck, DuelOptions options)
 
     public void MainLoop()
     {
-        Player.Deck.Shuffle();
+        if (options.InitShuffle)
+        {
+            Player.Deck.Shuffle();
+        }
         for (int i = 0; i < Player.Options.NumOfHands; i++)
         {
             var drawCard = Player.Draw();

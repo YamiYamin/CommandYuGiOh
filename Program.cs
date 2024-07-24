@@ -12,6 +12,11 @@ var deck = new Deck(
     new Monster("0", "篝火"),
 ]);
 
-var game = new Game(deck, new() { NumOfHands = 3 });
+var options = new DuelOptions()
+{
+    NumOfHands = 3,
+    InitShuffle = true,
+};
+var game = new Game(deck, options);
 
 game.MainLoop();

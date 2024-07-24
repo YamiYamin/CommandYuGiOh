@@ -12,7 +12,7 @@ public class Player(Deck deck, DuelOptions options)
 
     public Card Draw()
     {
-        if (Deck.Cards.Count == 0)
+        if (Deck.IsEmpty())
         {
             return Card.Empty;
         }
