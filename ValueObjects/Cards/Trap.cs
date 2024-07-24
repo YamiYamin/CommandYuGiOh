@@ -1,9 +1,5 @@
 namespace YuGiOh.ValueObjects.Cards;
 
-public class Trap : Card
+public class Trap(string id, string name) : Card(id, name)
 {
-    public Trap(string id, string name)
-        : base(id, name)
-    {
-    }
 }

@@ -1,16 +1,10 @@
 namespace YuGiOh.ValueObjects.Cards;
 
-public class Card
+public class Card(string id, string name)
 {
     public static Card Empty { get; } = new(string.Empty, string.Empty);
-    public string Id { get; }
-    public string Name { get; }
-
-    public Card(string id, string name)
-    {
-        Id = id;
-        Name = name;
-    }
+    public string Id { get; } = id;
+    public string Name { get; } = name;
 }
 
 public enum FaceDirection

@@ -2,18 +2,10 @@ using System.ComponentModel;
 
 namespace YuGiOh.ValueObjects.Cards;
 
-public class FieldSpell : Spell
+public class FieldSpell(string id, string name) : Spell(id, name)
 {
-    public FieldSpell(string id, string name)
-        : base(id, name)
-    {
-    }
 }
 
-public class Spell : Card
+public class Spell(string id, string name) : Card(id, name)
 {
-    public Spell(string id, string name)
-        : base(id, name)
-    {
-    }
 }

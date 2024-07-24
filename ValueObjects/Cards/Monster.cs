@@ -1,13 +1,8 @@
 namespace YuGiOh.ValueObjects.Cards;
 
-public class Monster : Card
+public class Monster(string id, string name) : Card(id, name)
 {
     public BattlePosition battlePosition = BattlePosition.AtackPosition;
-
-    public Monster(string id, string name)
-        : base(id, name)
-    {
-    }
 }
 
 public enum BattlePosition
