@@ -62,7 +62,7 @@ internal class Game(Deck deck, DuelOptions options)
                     var card = Player.Hand.GetCard(index - 1);
                     if (card == Card.Empty)
                     {
-                        WriteLineInvalidInput();
+                        WriteLineInvalidInput(index);
                         continue;
                     }
                     Console.WriteLine($"{card.Name}を置く位置を選んでください。");
@@ -78,14 +78,14 @@ internal class Game(Deck deck, DuelOptions options)
                     var zone = Player.Field.GetZone(index - 1);
                     if (zone is null)
                     {
-                        WriteLineInvalidInput();
+                        WriteLineInvalidInput(index);
                         continue;
                     }
                     Player.Place(card, zone);
                     WriteLineResult($"{card.Name}を{zone.Name}に置きました。");
                     break;
                 default:
-                    WriteLineInvalidInput();
+                    WriteLineInvalidInput(num);
                     break;
             }
         }
@@ -101,5 +101,11 @@ internal class Game(Deck deck, DuelOptions options)
     {
         Console.Clear();
         Console.WriteLine("不正な入力値です");
+    }
+
+    private static void WriteLineInvalidInput(int input)
+    {
+        Console.Clear();
+        Console.WriteLine($"{input}は不正な入力値です");
     }
 }
