@@ -22,11 +22,25 @@ public class Player(Deck deck, DuelOptions options)
         return drawCard;
     }
 
-    public void Put(Card card, Zone zone)
+    public void Place(Card card, Zone zone)
     {
         Hand.Remove(card);
 
         zone.Insert(card, 0);
+    }
+
+    public void PlaceOnGraveyard(Card card)
+    {
+        Hand.Remove(card);
+
+        Graveyard.Place(card);
+    }
+
+    public void PlaceOnDeck(Card card, bool isTop)
+    {
+        Hand.Remove(card);
+
+        Deck.Add(card, isTop);
     }
 
     public void PrintField()

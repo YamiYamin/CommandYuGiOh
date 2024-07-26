@@ -4,6 +4,7 @@ namespace YuGiOh.ValueObjects;
 
 public class Deck
 {
+    // インデックス0がデッキトップ, 後ろがデッキボトム
     private List<Card> cards = [];
 
     public Deck()
@@ -25,6 +26,18 @@ public class Deck
         var card = cards[0];
         cards.RemoveAt(0);
         return card;
+    }
+
+    internal void Add(Card card, bool isTop)
+    {
+        if (isTop)
+        {
+            cards.Insert(0, card);
+        }
+        else
+        {
+            cards.Add(card);
+        }
     }
 
     public void Shuffle()

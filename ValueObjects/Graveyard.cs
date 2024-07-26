@@ -11,7 +11,7 @@ public class Graveyard
         return _cards.Count == 0;
     }
 
-    public void Put(Card card)
+    public void Place(Card card)
     {
         _cards.Add(card);
     }

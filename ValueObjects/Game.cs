@@ -1,5 +1,4 @@
-﻿using YuGiOh.ValueObjects;
-using YuGiOh.ValueObjects.Cards;
+﻿using YuGiOh.ValueObjects.Cards;
 
 namespace YuGiOh.ValueObjects;
 
@@ -28,7 +27,7 @@ internal class Game(Deck deck, DuelOptions options)
         {
             Player.PrintField();
             Console.WriteLine($@"★ コマンドを選んでください。");
-            Console.WriteLine($@"0. ドロー, 1. 置く");
+            Console.WriteLine($@"1. ドロー, 2. 置く");
             Console.Write("> ");
             if (!int.TryParse(Console.ReadLine(), out int num))
             {
@@ -37,7 +36,7 @@ internal class Game(Deck deck, DuelOptions options)
             }
             switch (num)
             {
-                case 0:
+                case 1:
                     var drawCard = Player.Draw();
                     if (drawCard == Card.Empty)
                     {
@@ -46,7 +45,7 @@ internal class Game(Deck deck, DuelOptions options)
                     }
                     Console.WriteLine($"{drawCard.Name}をドローしました。");
                     break;
-                case 1:
+                case 2:
                     if (!Player.Hand.Exists())
                     {
                         Console.WriteLine("手札がありません。");
@@ -82,7 +81,7 @@ internal class Game(Deck deck, DuelOptions options)
                         Console.WriteLine("不正な入力値です");
                         continue;
                     }
-                    Player.Put(card, zone);
+                    Player.Place(card, zone);
                     Console.WriteLine($"{card.Name}を{zone.Name}に置きました。");
                     break;
                 default:
