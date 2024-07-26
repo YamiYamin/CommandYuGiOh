@@ -51,7 +51,7 @@ public class MonsterZoneRight : MonsterZone
     }
 }
 
-public class SpellTrapZoneLeft : MonsterZone
+public class SpellTrapZoneLeft : SpellTrapZone
 {
     public SpellTrapZoneLeft()
     {
@@ -64,7 +64,7 @@ public class SpellTrapZoneLeft : MonsterZone
     }
 }
 
-public class SpellTrapZoneCenter : MonsterZone
+public class SpellTrapZoneCenter : SpellTrapZone
 {
     public SpellTrapZoneCenter()
     {
@@ -77,7 +77,7 @@ public class SpellTrapZoneCenter : MonsterZone
     }
 }
 
-public class SpellTrapZoneRight : MonsterZone
+public class SpellTrapZoneRight : SpellTrapZone
 {
     public SpellTrapZoneRight()
     {

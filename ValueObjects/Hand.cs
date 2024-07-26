@@ -18,8 +18,14 @@ public class Hand
 
     public Card GetCard(int index)
     {
-        if (_cards.Count == 0 || index >= _cards.Count)
+        if (index < 0 || index >= _cards.Count)
         {
+            return Card.Empty;
+        }
+
+        if (_cards.Count == 0)
+        {
+
             return Card.Empty;
         }
 
@@ -33,7 +39,7 @@ public class Hand
 
     public void PrintMonsters(bool showIndex = true)
     {
-        if(!Exists())
+        if (!Exists())
         {
             return;
         }
@@ -69,10 +75,10 @@ public class Hand
     {
         if (showIndex)
         {
-            Console.Write($"{0}. {cards.First().Name}");
-            for (int i = 1; i < cards.Count; i++)
+            Console.Write($"{1}. {cards.First().Name}");
+            for (int i = 2; i < cards.Count + 1; i++)
             {
-                Console.Write($", {i}. {cards[i].Name}");
+                Console.Write($", {i}. {cards[i - 1].Name}");
             }
         }
         else
@@ -84,6 +90,16 @@ public class Hand
             }
         }
         Console.WriteLine();
+    }
+
+    public void Print()
+    {
+        if (!Exists())
+        {
+            Console.WriteLine(" :0");
+            return;
+        }
+        Console.WriteLine($"¡:{_cards.Count}");
     }
 }
 

@@ -31,7 +31,7 @@ internal class Game(Deck deck, DuelOptions options)
             Console.Write("> ");
             if (!int.TryParse(Console.ReadLine(), out int num))
             {
-                Console.WriteLine("不正な入力値です");
+                WriteLineInvalidInput();
                 continue;
             }
             switch (num)
@@ -40,15 +40,15 @@ internal class Game(Deck deck, DuelOptions options)
                     var drawCard = Player.Draw();
                     if (drawCard == Card.Empty)
                     {
-                        Console.WriteLine($"デッキがありません。");
+                        WriteLineResult($"デッキがありません。");
                         continue;
                     }
-                    Console.WriteLine($"{drawCard.Name}をドローしました。");
+                    WriteLineResult($"{drawCard.Name}をドローしました。");
                     break;
                 case 2:
                     if (!Player.Hand.Exists())
                     {
-                        Console.WriteLine("手札がありません。");
+                        WriteLineResult("手札がありません。");
                         continue;
                     }
                     Console.WriteLine($@"★ 手札から置くカードを選んでください。");
@@ -56,38 +56,50 @@ internal class Game(Deck deck, DuelOptions options)
                     Console.Write("> ");
                     if (!int.TryParse(Console.ReadLine(), out int index))
                     {
-                        Console.WriteLine("不正な入力値です");
+                        WriteLineInvalidInput();
                         continue;
                     }
-                    var card = Player.Hand.GetCard(index);
+                    var card = Player.Hand.GetCard(index - 1);
                     if (card == Card.Empty)
                     {
-                        Console.WriteLine("不正な入力値です");
+                        WriteLineInvalidInput();
                         continue;
                     }
-                    Console.WriteLine("置く位置を選んでください。");
+                    Console.WriteLine($"{card.Name}を置く位置を選んでください。");
                     Console.WriteLine($"1. フィールドゾーン");
                     Console.WriteLine($"2. モンスターゾーン左, 3. モンスターゾーン中央, 4. モンスターゾーン右");
                     Console.WriteLine($"5. 魔法＆罠ゾーン左, 6. 魔法＆罠ゾーン中央, 7. 魔法＆罠ゾーン右");
                     Console.Write("> ");
                     if (!int.TryParse(Console.ReadLine(), out index))
                     {
-                        Console.WriteLine("不正な入力値です");
+                        WriteLineInvalidInput();
                         continue;
                     }
                     var zone = Player.Field.GetZone(index - 1);
                     if (zone is null)
                     {
-                        Console.WriteLine("不正な入力値です");
+                        WriteLineInvalidInput();
                         continue;
                     }
                     Player.Place(card, zone);
-                    Console.WriteLine($"{card.Name}を{zone.Name}に置きました。");
+                    WriteLineResult($"{card.Name}を{zone.Name}に置きました。");
                     break;
                 default:
-                    Console.WriteLine("不正な入力値です");
+                    WriteLineInvalidInput();
                     break;
             }
         }
+    }
+
+    private static void WriteLineResult(string value)
+    {
+        Console.Clear();
+        Console.WriteLine(value);
+    }
+
+    private static void WriteLineInvalidInput()
+    {
+        Console.Clear();
+        Console.WriteLine("不正な入力値です");
     }
 }

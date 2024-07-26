@@ -50,5 +50,6 @@ public class Player(Deck deck, DuelOptions options)
         Graveyard.Print();
         Field.PrintSpellTrapZone();
         Deck.Print();
+        Hand.Print();
     }
 }
