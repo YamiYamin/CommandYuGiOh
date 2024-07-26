@@ -45,6 +45,21 @@ public class Field
         };
     }
 
+    public Zone? GetZone(int zoneNum)
+    {
+        return (ZoneType)zoneNum switch
+        {
+            ZoneType.FieldZone => FieldZone,
+            ZoneType.MonsterZoneLeft => MonsterZoneLeft,
+            ZoneType.MonsterZoneCenter => MonsterZoneCenter,
+            ZoneType.MonsterZoneRight => MonsterZoneRight,
+            ZoneType.SpellTrapZoneLeft => SpellTrapZoneLeft,
+            ZoneType.SpellTrapZoneCenter => SpellTrapZoneCenter,
+            ZoneType.SpellTrapZoneRight => SpellTrapZoneRight,
+            _ => null,
+        };
+    }
+
     public void PrintFieldZone()
     {
         FieldZone.Print();
@@ -72,4 +87,16 @@ public enum MonsterZoneType
     MonsterZoneLeft,
     MonsterZoneCenter,
     MonsterZoneRight,
+}
+
+
+public enum ZoneType
+{
+    FieldZone,
+    MonsterZoneLeft,
+    MonsterZoneCenter,
+    MonsterZoneRight,
+    SpellTrapZoneLeft,
+    SpellTrapZoneCenter,
+    SpellTrapZoneRight,
 }

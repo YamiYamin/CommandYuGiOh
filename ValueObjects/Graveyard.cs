@@ -4,11 +4,16 @@ namespace YuGiOh.ValueObjects;
 
 public class Graveyard
 {
-    private List<Card> cards = [];
+    private readonly List<Card> _cards = [];
 
     public bool IsEmpty()
     {
-        return cards.Count == 0;
+        return _cards.Count == 0;
+    }
+
+    public void Put(Card card)
+    {
+        _cards.Add(card);
     }
 
     public void Print()
@@ -19,6 +24,6 @@ public class Graveyard
             return;
         }
 
-        Console.WriteLine($" □:{cards.Count}");
+        Console.WriteLine($" □:{_cards.Count}");
     }
 }

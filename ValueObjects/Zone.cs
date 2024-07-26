@@ -2,8 +2,10 @@
 
 namespace YuGiOh.ValueObjects;
 
-public class FieldZone : Zone
+public sealed class FieldZone : Zone
 {
+    public override string Name { get; protected set; } = "フィールドゾーン";
+
     public override void Print()
     {
         WriteLine();
@@ -12,7 +14,12 @@ public class FieldZone : Zone
 
 public class MonsterZoneLeft : MonsterZone
 {
-    public override void Print() 
+    public MonsterZoneLeft()
+    {
+        Name += "左";
+    }
+
+    public override void Print()
     {
         Write();
     }
@@ -20,6 +27,11 @@ public class MonsterZoneLeft : MonsterZone
 
 public class MonsterZoneCenter : MonsterZone
 {
+    public MonsterZoneCenter()
+    {
+        Name += "中央";
+    }
+
     public override void Print()
     {
         Write();
@@ -28,6 +40,11 @@ public class MonsterZoneCenter : MonsterZone
 
 public class MonsterZoneRight : MonsterZone
 {
+    public MonsterZoneRight()
+    {
+        Name += "右";
+    }
+
     public override void Print()
     {
         Write();
@@ -36,7 +53,12 @@ public class MonsterZoneRight : MonsterZone
 
 public class SpellTrapZoneLeft : MonsterZone
 {
-    public override void Print() 
+    public SpellTrapZoneLeft()
+    {
+        Name += "左";
+    }
+
+    public override void Print()
     {
         Write();
     }
@@ -44,6 +66,11 @@ public class SpellTrapZoneLeft : MonsterZone
 
 public class SpellTrapZoneCenter : MonsterZone
 {
+    public SpellTrapZoneCenter()
+    {
+        Name += "中央";
+    }
+
     public override void Print()
     {
         Write();
@@ -52,6 +79,11 @@ public class SpellTrapZoneCenter : MonsterZone
 
 public class SpellTrapZoneRight : MonsterZone
 {
+    public SpellTrapZoneRight()
+    {
+        Name += "右";
+    }
+
     public override void Print()
     {
         Write();
@@ -60,14 +92,18 @@ public class SpellTrapZoneRight : MonsterZone
 
 public abstract class MonsterZone : Zone
 {
+    public override string Name { get; protected set; } = "モンスターゾーン";
 }
 
 public abstract class SpellTrapZone : Zone
 {
+    public override string Name { get; protected set; } = "魔法＆罠ゾーン";
 }
 
 public abstract class Zone
 {
+    public abstract string Name { get; protected set; }
+
     public List<Card> Cards { get; set; } = [];
 
     public void Insert(Card card, int index)

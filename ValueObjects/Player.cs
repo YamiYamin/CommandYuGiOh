@@ -22,11 +22,11 @@ public class Player(Deck deck, DuelOptions options)
         return drawCard;
     }
 
-    public void Summon(Card card, MonsterZone monsterZone)
+    public void Put(Card card, Zone zone)
     {
         Hand.Remove(card);
-        
-        monsterZone.Insert(card, 0);
+
+        zone.Insert(card, 0);
     }
 
     public void PrintField()
