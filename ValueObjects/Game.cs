@@ -1,6 +1,4 @@
-﻿using YuGiOh.ValueObjects.Cards;
-
-namespace YuGiOh.ValueObjects;
+﻿namespace YuGiOh.ValueObjects;
 
 internal class Game(Deck deck, DuelOptions options)
 {
@@ -15,97 +13,69 @@ internal class Game(Deck deck, DuelOptions options)
         for (int i = 0; i < Player.Options.NumOfHands; i++)
         {
             var drawCard = Player.Draw();
-            if (drawCard == Card.Empty)
-            {
-                Console.WriteLine($"デッキがありません。");
-                break;
-            }
             Console.WriteLine($"{drawCard.Name}をドローしました。");
         }
 
         while (true)
         {
-            Player.PrintField();
-            Console.WriteLine($@"★ コマンドを選んでください。");
-            Console.WriteLine($@"1. ドロー, 2. 置く");
-            Console.Write("> ");
-            if (!int.TryParse(Console.ReadLine(), out int num))
+            try
             {
-                WriteLineInvalidInput();
-                continue;
+                Player.PrintField();
+                Console.WriteLine($@"★ コマンドを選んでください。");
+                Console.WriteLine($@"1. ドロー, 2. 置く, 3. 確認");
+                int num = ReadLineNum();
+                switch (num)
+                {
+                    case 1:
+                        var drawCard = Player.Draw();
+                        WriteLineResult($"{drawCard.Name}をドローしました。");
+                        break;
+                    case 2:
+                        if (!Player.Hand.Exists())
+                        {
+                            WriteLineResult("手札がありません。");
+                        }
+                        Console.WriteLine($@"★ 手札から置くカードを選んでください。");
+                        Player.Hand.PrintHands();
+                        int cardIndex = ReadLineNum() - 1;
+                        var card = Player.Hand.GetCard(cardIndex);
+                        
+                        Console.WriteLine($"{card.Name}を置く位置を選んでください。");
+                        Console.WriteLine($"1. フィールドゾーン");
+                        Console.WriteLine($"2. モンスターゾーン左, 3. モンスターゾーン中央, 4. モンスターゾーン右");
+                        Console.WriteLine($"5. 魔法＆罠ゾーン左, 6. 魔法＆罠ゾーン中央, 7. 魔法＆罠ゾーン右");
+                        int zoneIndex = ReadLineNum() - 1;
+                        var zone = Player.Field.GetZone(zoneIndex);
+                        Player.Place(card, zone);
+
+                        WriteLineResult($"{card.Name}を{zone.Name}に置きました。");
+                        break;
+                    default:
+                        throw new ArgumentException("番号が正しくありません。");
+                }
             }
-            switch (num)
+            catch (Exception ex)
             {
-                case 1:
-                    var drawCard = Player.Draw();
-                    if (drawCard == Card.Empty)
-                    {
-                        WriteLineResult($"デッキがありません。");
-                        continue;
-                    }
-                    WriteLineResult($"{drawCard.Name}をドローしました。");
-                    break;
-                case 2:
-                    if (!Player.Hand.Exists())
-                    {
-                        WriteLineResult("手札がありません。");
-                        continue;
-                    }
-                    Console.WriteLine($@"★ 手札から置くカードを選んでください。");
-                    Player.Hand.PrintHands();
-                    Console.Write("> ");
-                    if (!int.TryParse(Console.ReadLine(), out int index))
-                    {
-                        WriteLineInvalidInput();
-                        continue;
-                    }
-                    var card = Player.Hand.GetCard(index - 1);
-                    if (card == Card.Empty)
-                    {
-                        WriteLineInvalidInput(index);
-                        continue;
-                    }
-                    Console.WriteLine($"{card.Name}を置く位置を選んでください。");
-                    Console.WriteLine($"1. フィールドゾーン");
-                    Console.WriteLine($"2. モンスターゾーン左, 3. モンスターゾーン中央, 4. モンスターゾーン右");
-                    Console.WriteLine($"5. 魔法＆罠ゾーン左, 6. 魔法＆罠ゾーン中央, 7. 魔法＆罠ゾーン右");
-                    Console.Write("> ");
-                    if (!int.TryParse(Console.ReadLine(), out index))
-                    {
-                        WriteLineInvalidInput();
-                        continue;
-                    }
-                    var zone = Player.Field.GetZone(index - 1);
-                    if (zone is null)
-                    {
-                        WriteLineInvalidInput(index);
-                        continue;
-                    }
-                    Player.Place(card, zone);
-                    WriteLineResult($"{card.Name}を{zone.Name}に置きました。");
-                    break;
-                default:
-                    WriteLineInvalidInput(num);
-                    break;
+                Console.Clear();
+                Console.WriteLine(ex.Message);
             }
         }
+    }
+
+    private static int ReadLineNum()
+    {
+        Console.Write("> ");
+        if (!int.TryParse(Console.ReadLine(), out int num))
+        {
+            throw new ArgumentException("番号が正しくありません");
+        }
+
+        return num;
     }
 
     private static void WriteLineResult(string value)
     {
         Console.Clear();
         Console.WriteLine(value);
-    }
-
-    private static void WriteLineInvalidInput()
-    {
-        Console.Clear();
-        Console.WriteLine("不正な入力値です");
-    }
-
-    private static void WriteLineInvalidInput(int input)
-    {
-        Console.Clear();
-        Console.WriteLine($"{input}は不正な入力値です");
     }
 }

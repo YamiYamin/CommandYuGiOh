@@ -20,13 +20,12 @@ public class Hand
     {
         if (index < 0 || index >= _cards.Count)
         {
-            return Card.Empty;
+            throw new ArgumentOutOfRangeException(nameof(index), "番号が正しくありません。");
         }
 
         if (_cards.Count == 0)
         {
-
-            return Card.Empty;
+            throw new Exception("デッキにカードがありません。");
         }
 
         return _cards[index];

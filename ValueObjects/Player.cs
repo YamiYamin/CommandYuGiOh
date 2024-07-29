@@ -15,7 +15,7 @@ public class Player(Deck deck, DuelOptions options)
     {
         if (Deck.IsEmpty())
         {
-            return Card.Empty;
+            throw new IndexOutOfRangeException("デッキがありません。");
         }
         var drawCard = Deck.Pop();
         Hand.Add(drawCard);

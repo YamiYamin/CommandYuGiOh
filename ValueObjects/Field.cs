@@ -41,11 +41,11 @@ public class Field
             MonsterZoneType.MonsterZoneLeft => MonsterZoneLeft,
             MonsterZoneType.MonsterZoneCenter => MonsterZoneCenter,
             MonsterZoneType.MonsterZoneRight => MonsterZoneRight,
-            _ => null,
+            _ => throw new ArgumentException($"”Ô†‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñB"),
         };
     }
 
-    public Zone? GetZone(int zoneNum)
+    public Zone GetZone(int zoneNum)
     {
         return (ZoneType)zoneNum switch
         {
@@ -56,7 +56,7 @@ public class Field
             ZoneType.SpellTrapZoneLeft => SpellTrapZoneLeft,
             ZoneType.SpellTrapZoneCenter => SpellTrapZoneCenter,
             ZoneType.SpellTrapZoneRight => SpellTrapZoneRight,
-            _ => null,
+            _ => throw new ArgumentException($"”Ô†‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñB"),
         };
     }
 
