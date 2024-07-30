@@ -60,4 +60,20 @@ public class Deck
 
         Console.WriteLine($" Å°:{cards.Count}");
     }
+
+    internal void PrintDeckList()
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine();
+            return;
+        }
+
+        Console.Write($"1. {cards.First().Name}");
+        for (int i = 1; i < cards.Count; i++)
+        {
+            Console.Write($", {i + 1}. {cards[i].Name}");
+        }
+        Console.WriteLine();
+    }
 }

@@ -23,8 +23,7 @@ internal class Game(Deck deck, DuelOptions options)
                 Player.PrintField();
                 Console.WriteLine($@"★ コマンドを選んでください。");
                 Console.WriteLine($@"1. ドロー, 2. 置く, 3. 確認");
-                int num = ReadLineNum();
-                switch (num)
+                switch (ReadLineNum())
                 {
                     case 1:
                         var drawCard = Player.Draw();
@@ -34,6 +33,7 @@ internal class Game(Deck deck, DuelOptions options)
                         if (!Player.Hand.Exists())
                         {
                             WriteLineResult("手札がありません。");
+                            break;
                         }
                         Console.WriteLine($@"★ 手札から置くカードを選んでください。");
                         Player.Hand.PrintHands();
@@ -49,6 +49,30 @@ internal class Game(Deck deck, DuelOptions options)
                         Player.Place(card, zone);
 
                         WriteLineResult($"{card.Name}を{zone.Name}に置きました。");
+                        break;
+                    case 3:
+                        Console.WriteLine("★ 確認する場所を選んでください。");
+                        Console.WriteLine($"1. デッキ, 2. 手札, 3. フィールド, 4. 墓地");
+                        switch (ReadLineNum())
+                        {
+                            case 1:
+                                Console.Clear();
+                                Player.Deck.PrintDeckList();
+                                break;
+                            case 2:
+                                Console.Clear();
+                                Player.Hand.PrintHands();
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                Console.Clear();
+                                Player.Graveyard.PrintGraveyardList();
+                                break;
+                            default:
+                                throw new ArgumentException("番号が正しくありません。");
+                        }
+
                         break;
                     default:
                         throw new ArgumentException("番号が正しくありません。");
