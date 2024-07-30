@@ -6,6 +6,11 @@ public class BanishedCards : CardListBase
 {
     private readonly List<Card> _cards = [];
 
+    internal void Add(Card card)
+    {
+        _cards.Add(card);
+    }
+
     public void PrintBanishedCards()
     {
         if (_cards.Count == 0)

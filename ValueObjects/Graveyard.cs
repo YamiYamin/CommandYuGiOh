@@ -16,6 +16,11 @@ public class Graveyard : CardListBase
         _cards.Add(card);
     }
 
+    public void Add(Card card)
+    {
+        _cards.Add(card);
+    }
+
     public void Print()
     {
         if (IsEmpty())

@@ -44,6 +44,20 @@ public class Player(Deck deck, DuelOptions options)
         Deck.Add(card, isTop);
     }
 
+    public Card Search(int index)
+    {
+        var card = Deck.Remove(index);
+        Hand.Add(card);
+        return card;
+    }
+
+    public Card BanishFromDeck(int index)
+    {
+        var card = Deck.Remove(index);
+        BanishedCards.Add(card);
+        return card;
+    }
+
     public void PrintField()
     {
         Field.PrintFieldZone();

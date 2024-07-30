@@ -28,7 +28,7 @@ public class Deck : CardListBase
         return card;
     }
 
-    internal void Add(Card card, bool isTop)
+    public void Add(Card card, bool isTop)
     {
         if (isTop)
         {
@@ -38,6 +38,17 @@ public class Deck : CardListBase
         {
             cards.Add(card);
         }
+    }
+
+    public Card Remove(int index)
+    {
+        if (index < 0 || index >= cards.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(index), "");
+        }
+        var card = cards[index];
+        cards.RemoveAt(index);
+        return card;
     }
 
     public void Shuffle()
@@ -61,7 +72,7 @@ public class Deck : CardListBase
         Console.WriteLine($" Å°:{cards.Count}");
     }
 
-    internal void PrintDeckList()
+    public void PrintDeckList(bool showIndex = true)
     {
         if (IsEmpty())
         {
@@ -69,8 +80,7 @@ public class Deck : CardListBase
             return;
         }
 
-
         Console.Write("ÉfÉbÉL: ");
-        PrintCards(cards, true);
+        PrintCards(cards, showIndex);
     }
 }
