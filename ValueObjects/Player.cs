@@ -8,6 +8,7 @@ public class Player(Deck deck, DuelOptions options)
     public Hand Hand { get; set; } = new();
     public Field Field { get; set; } = new();
     public Graveyard Graveyard { get; set; } = new();
+    public BanishedCards BanishedCards { get; set; } = new();
 
     public DuelOptions Options { get; set; } = options;
 

@@ -2,7 +2,7 @@
 
 namespace YuGiOh.ValueObjects;
 
-public class Graveyard
+public class Graveyard : CardListBase
 {
     private readonly List<Card> _cards = [];
 
@@ -31,14 +31,11 @@ public class Graveyard
     {
         if (IsEmpty())
         {
+            Console.WriteLine("墓地がありません。");
             return;
         }
 
-        Console.Write($"1. {_cards.First()}");
-        for (int i = 1; i < _cards.Count; i++)
-        {
-            Console.Write($", {i + 1}. {_cards[i]}");
-        }
-        Console.WriteLine();
+        Console.Write("墓地: ");
+        PrintCards(_cards, true);
     }
 }

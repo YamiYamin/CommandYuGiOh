@@ -2,7 +2,7 @@ using YuGiOh.ValueObjects.Cards;
 
 namespace YuGiOh.ValueObjects;
 
-public class Deck
+public class Deck : CardListBase
 {
     // インデックス0がデッキトップ, 後ろがデッキボトム
     private List<Card> cards = [];
@@ -65,15 +65,12 @@ public class Deck
     {
         if (IsEmpty())
         {
-            Console.WriteLine();
+            Console.WriteLine("デッキがありません。");
             return;
         }
 
-        Console.Write($"1. {cards.First().Name}");
-        for (int i = 1; i < cards.Count; i++)
-        {
-            Console.Write($", {i + 1}. {cards[i].Name}");
-        }
-        Console.WriteLine();
+
+        Console.Write("デッキ: ");
+        PrintCards(cards, true);
     }
 }

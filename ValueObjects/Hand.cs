@@ -2,7 +2,7 @@ using YuGiOh.ValueObjects.Cards;
 
 namespace YuGiOh.ValueObjects;
 
-public class Hand
+public class Hand : CardListBase
 {
     private readonly List<Card> _cards = [];
 
@@ -64,31 +64,13 @@ public class Hand
     {
         if (!Exists())
         {
+            Console.WriteLine("éËéDÇ™Ç†ÇËÇ‹ÇπÇÒÅB");
             return;
         }
 
-        PrintCards(_cards, showIndex);
-    }
 
-    private static void PrintCards<T>(List<T> cards, bool showIndex) where T : Card
-    {
-        if (showIndex)
-        {
-            Console.Write($"{1}. {cards.First().Name}");
-            for (int i = 2; i < cards.Count + 1; i++)
-            {
-                Console.Write($", {i}. {cards[i - 1].Name}");
-            }
-        }
-        else
-        {
-            Console.Write($"{cards.First().Name}");
-            for (int i = 1; i < cards.Count; i++)
-            {
-                Console.Write($", {cards[i].Name}");
-            }
-        }
-        Console.WriteLine();
+        Console.Write("éËéD: ");
+        PrintCards(_cards, showIndex);
     }
 
     public void Print()
@@ -101,4 +83,3 @@ public class Hand
         Console.WriteLine($"Å°:{_cards.Count}");
     }
 }
-

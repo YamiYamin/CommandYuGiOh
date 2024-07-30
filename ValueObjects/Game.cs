@@ -52,7 +52,7 @@ internal class Game(Deck deck, DuelOptions options)
                         break;
                     case 3:
                         Console.WriteLine("★ 確認する場所を選んでください。");
-                        Console.WriteLine($"1. デッキ, 2. 手札, 3. フィールド, 4. 墓地");
+                        Console.WriteLine($"1. デッキ, 2. 手札, 3. フィールド, 4. 墓地, 5. 除外");
                         switch (ReadLineNum())
                         {
                             case 1:
@@ -68,6 +68,10 @@ internal class Game(Deck deck, DuelOptions options)
                             case 4:
                                 Console.Clear();
                                 Player.Graveyard.PrintGraveyardList();
+                                break;
+                            case 5:
+                                Console.Clear();
+                                Player.BanishedCards.PrintBanishedCards();
                                 break;
                             default:
                                 throw new ArgumentException("番号が正しくありません。");
